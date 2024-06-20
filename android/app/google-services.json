@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "124213231220",
+    "project_id": "to-do-7m32qp",
+    "storage_bucket": "to-do-7m32qp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124213231220:android:55f6263395b08cead35b21",
+        "android_client_info": {
+          "package_name": "link.speel.doist"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHmGHlD5zqnn9BDC4aZxnNZ0ZnrkludCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124213231220:android:d5d2fb5dbc903accd35b21",
+        "android_client_info": {
+          "package_name": "link.speel.geminit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHmGHlD5zqnn9BDC4aZxnNZ0ZnrkludCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
