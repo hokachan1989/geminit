@@ -1,2 +1,7 @@
-# geminit
-This is a demo app for FlutterFlow with Genkit
+# Geminit
+
+A new Flutter project.
+
+## Getting Started
+
+FlutterFlow projects are built to run on the Flutter _stable_ release.
