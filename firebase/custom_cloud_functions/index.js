@@ -1,5 +1,7 @@
 const admin = require("firebase-admin/app");
 admin.initializeApp();
 
-const newCloudFunction = require("./new_cloud_function.js");
-exports.newCloudFunction = newCloudFunction.newCloudFunction;
+const menuSuggestionFlow = require("./menu_suggestion_flow.js");
+exports.menuSuggestionFlow = menuSuggestionFlow.menuSuggestionFlow;
+const sayHello = require("./say_hello.js");
+exports.sayHello = sayHello.sayHello;

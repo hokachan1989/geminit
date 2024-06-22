@@ -1,7 +1,8 @@
-import '/auth/firebase_auth/auth_util.dart';
+import '/backend/custom_cloud_functions/custom_cloud_function_response_manager.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'login_model.dart';
 export 'login_model.dart';
@@ -26,9 +27,6 @@ class _LoginWidgetState extends State<LoginWidget> {
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'Login'});
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
-
-    _model.passwordTextController ??= TextEditingController();
-    _model.passwordFocusNode ??= FocusNode();
   }
 
   @override
@@ -134,7 +132,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           _model.emailAddressTextController,
                                       focusNode: _model.emailAddressFocusNode,
                                       autofocus: true,
-                                      autofillHints: const [AutofillHints.email],
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         labelText: 'Email',
@@ -190,7 +187,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                                             fontFamily: 'Instrument Sans',
                                             letterSpacing: 0.0,
                                           ),
-                                      keyboardType: TextInputType.emailAddress,
                                       validator: _model
                                           .emailAddressTextControllerValidator
                                           .asValidator(context),
@@ -200,109 +196,57 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),
-                                  child: SizedBox(
-                                    width: 370.0,
-                                    child: TextFormField(
-                                      controller: _model.passwordTextController,
-                                      focusNode: _model.passwordFocusNode,
-                                      autofocus: true,
-                                      autofillHints: const [AutofillHints.password],
-                                      obscureText: !_model.passwordVisibility,
-                                      decoration: InputDecoration(
-                                        labelText: 'Password',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .override(
-                                              fontFamily: 'Figtree',
-                                              letterSpacing: 0.0,
-                                            ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryBackground,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        errorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        focusedErrorBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12.0),
-                                        ),
-                                        filled: true,
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                        suffixIcon: InkWell(
-                                          onTap: () => setState(
-                                            () => _model.passwordVisibility =
-                                                !_model.passwordVisibility,
-                                          ),
-                                          focusNode:
-                                              FocusNode(skipTraversal: true),
-                                          child: Icon(
-                                            _model.passwordVisibility
-                                                ? Icons.visibility_outlined
-                                                : Icons.visibility_off_outlined,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            size: 24.0,
-                                          ),
-                                        ),
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Instrument Sans',
-                                            letterSpacing: 0.0,
-                                          ),
-                                      validator: _model
-                                          .passwordTextControllerValidator
-                                          .asValidator(context),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 16.0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      GoRouter.of(context).prepareAuthEvent();
-
-                                      final user =
-                                          await authManager.signInWithEmail(
-                                        context,
-                                        _model.emailAddressTextController.text,
-                                        _model.passwordTextController.text,
-                                      );
-                                      if (user == null) {
-                                        return;
+                                      try {
+                                        final result =
+                                            await FirebaseFunctions.instanceFor(
+                                                    region: 'asia-northeast1')
+                                                .httpsCallable('sayHello')
+                                                .call({
+                                          "prompt": 'Hello',
+                                        });
+                                        _model.cloudFunction00l =
+                                            SayHelloCloudFunctionCallResponse(
+                                          data: result.data,
+                                          succeeded: true,
+                                          resultAsString:
+                                              result.data.toString(),
+                                          jsonBody: result.data,
+                                        );
+                                      } on FirebaseFunctionsException catch (error) {
+                                        _model.cloudFunction00l =
+                                            SayHelloCloudFunctionCallResponse(
+                                          errorCode: error.code,
+                                          succeeded: false,
+                                        );
                                       }
 
-                                      context.goNamedAuth(
-                                          'Home', context.mounted);
+                                      if (_model.cloudFunction00l!.succeeded!) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              valueOrDefault<String>(
+                                                _model.cloudFunction00l?.data,
+                                                'result',
+                                              ),
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                      }
+
+                                      setState(() {});
                                     },
                                     text: 'Sign In',
                                     options: FFButtonOptions(
