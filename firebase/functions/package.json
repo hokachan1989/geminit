@@ -18,10 +18,10 @@
   },
   "scripts": {
     "lint": "./node_modules/.bin/eslint --max-warnings=0 .",
-    "serve": "firebase -P to-do-7m32qp emulators:start --only functions",
-    "shell": "firebase -P to-do-7m32qp functions:shell",
+    "serve": "firebase -P geminit-1qy1xv emulators:start --only functions",
+    "shell": "firebase -P geminit-1qy1xv functions:shell",
     "start": "npm run shell",
-    "logs": "firebase -P to-do-7m32qp functions:log",
+    "logs": "firebase -P geminit-1qy1xv functions:log",
     "compile": "cp ../../tsconfig.template.json ./tsconfig-compile.json && tsc --project tsconfig-compile.json"
   },
   "engines": {

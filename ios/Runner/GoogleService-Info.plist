@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBIcuWz4LLM7ufvRxiBUJvAMNp8_lOZhTA</string>
+	<string>AIzaSyDe4vxEkq59hpIckfSgb8WfC6NDyFzuIDU</string>
 	<key>GCM_SENDER_ID</key>
-	<string>124213231220</string>
+	<string>910555656483</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>link.speel.geminit</string>
 	<key>PROJECT_ID</key>
-	<string>to-do-7m32qp</string>
+	<string>geminit-1qy1xv</string>
 	<key>STORAGE_BUCKET</key>
-	<string>to-do-7m32qp.appspot.com</string>
+	<string>geminit-1qy1xv.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:124213231220:ios:b8341ddb3535da51d35b21</string>
+	<string>1:910555656483:ios:ecfa2b32b3b90be21fdc96</string>
 </dict>
 </plist>
