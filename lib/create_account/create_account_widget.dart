@@ -47,9 +47,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -279,7 +277,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           const EdgeInsetsDirectional.fromSTEB(
                                               16.0, 22.0, 16.0, 22.0),
                                       suffixIcon: InkWell(
-                                        onTap: () => setState(
+                                        onTap: () => safeSetState(
                                           () => _model.passwordVisibility =
                                               !_model.passwordVisibility,
                                         ),
@@ -371,7 +369,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                           const EdgeInsetsDirectional.fromSTEB(
                                               16.0, 22.0, 16.0, 22.0),
                                       suffixIcon: InkWell(
-                                        onTap: () => setState(
+                                        onTap: () => safeSetState(
                                           () => _model
                                                   .confirmPasswordVisibility =
                                               !_model.confirmPasswordVisibility,
@@ -495,6 +493,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                               if (user == null) {
                                 return;
                               }
+
+                              await UsersRecord.collection
+                                  .doc(user.uid)
+                                  .update(createUsersRecordData(
+                                    email: '',
+                                  ));
 
                               await GoalsRecord.collection.doc().set({
                                 ...createGoalsRecordData(

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for emailAddress widget.
   FocusNode? emailAddressFocusNode;
   TextEditingController? emailAddressTextController;
@@ -30,7 +29,6 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     emailAddressFocusNode?.dispose();
     emailAddressTextController?.dispose();
 

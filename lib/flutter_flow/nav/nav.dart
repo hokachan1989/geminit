@@ -75,13 +75,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const CreateAccountWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const TestWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const CreateAccountWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const TestWidget(),
         ),
         FFRoute(
           name: 'Home',
@@ -95,9 +95,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const CreateAccountWidget(),
         ),
         FFRoute(
-          name: 'Login',
-          path: '/login',
-          builder: (context, params) => const LoginWidget(),
+          name: 'FunctionTest',
+          path: '/functionTest',
+          builder: (context, params) => const FunctionTestWidget(),
         ),
         FFRoute(
           name: 'CreateGoal',
@@ -110,6 +110,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'GoalDetails')
               : const GoalDetailsWidget(),
+        ),
+        FFRoute(
+          name: 'GoalList',
+          path: '/goalList',
+          builder: (context, params) => const GoalListWidget(),
+        ),
+        FFRoute(
+          name: 'test',
+          path: '/test',
+          builder: (context, params) => const TestWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -282,7 +292,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/createAccount';
+            return '/test';
           }
           return null;
         },

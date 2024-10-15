@@ -8,10 +8,7 @@ exports.menuSuggestionFlow = functions
     memory: "128MB",
   })
   .https.onCall((data, context) => {
-    if (!context.auth.uid) {
-      return;
-    }
-    const prompt = data.prompt;
+    const subject = data.subject;
     // Write your code below!
 
     // Write your code above!

@@ -67,9 +67,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -140,11 +138,12 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                       );
                     }
                     List<GoalsRecord> listViewGoalsRecordList = snapshot.data!;
+
                     return ListView.separated(
                       padding: const EdgeInsets.fromLTRB(
                         24.0,
                         0,
-                        0,
+                        24.0,
                         0,
                       ),
                       primary: false,

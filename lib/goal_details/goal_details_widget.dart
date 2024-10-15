@@ -33,7 +33,7 @@ class _GoalDetailsWidgetState extends State<GoalDetailsWidget>
       vsync: this,
       length: 3,
       initialIndex: 0,
-    )..addListener(() => setState(() {}));
+    )..addListener(() => safeSetState(() {}));
     animationsMap.addAll({
       'columnOnPageLoadAnimation': AnimationInfo(
         trigger: AnimationTrigger.onPageLoad,
@@ -92,9 +92,7 @@ class _GoalDetailsWidgetState extends State<GoalDetailsWidget>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -1148,7 +1146,7 @@ class _GoalDetailsWidgetState extends State<GoalDetailsWidget>
                               ),
                               wrapWithModel(
                                 model: _model.createTaskModel,
-                                updateCallback: () => setState(() {}),
+                                updateCallback: () => safeSetState(() {}),
                                 child: const CreateTaskWidget(),
                               ),
                             ],

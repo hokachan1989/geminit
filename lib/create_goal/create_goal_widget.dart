@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'create_goal_model.dart';
@@ -32,7 +33,7 @@ class _CreateGoalWidgetState extends State<CreateGoalWidget> {
     if (!isWeb) {
       _keyboardVisibilitySubscription =
           KeyboardVisibilityController().onChange.listen((bool visible) {
-        setState(() {
+        safeSetState(() {
           _isKeyboardVisible = visible;
         });
       });
@@ -58,9 +59,7 @@ class _CreateGoalWidgetState extends State<CreateGoalWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -112,6 +111,19 @@ class _CreateGoalWidgetState extends State<CreateGoalWidget> {
                             TextFormField(
                               controller: _model.textController1,
                               focusNode: _model.textFieldFocusNode1,
+                              onChanged: (_) => EasyDebounce.debounce(
+                                '_model.textController1',
+                                const Duration(milliseconds: 2000),
+                                () async {
+                                  await GoalsRecord.collection
+                                      .doc()
+                                      .set(createGoalsRecordData(
+                                        title: _model.textController1.text,
+                                      ));
+
+                                  context.pushNamed('Home');
+                                },
+                              ),
                               autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(

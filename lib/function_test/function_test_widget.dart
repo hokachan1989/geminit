@@ -4,27 +4,28 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
-import 'login_model.dart';
-export 'login_model.dart';
+import 'function_test_model.dart';
+export 'function_test_model.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+class FunctionTestWidget extends StatefulWidget {
+  const FunctionTestWidget({super.key});
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<FunctionTestWidget> createState() => _FunctionTestWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
-  late LoginModel _model;
+class _FunctionTestWidgetState extends State<FunctionTestWidget> {
+  late FunctionTestModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginModel());
+    _model = createModel(context, () => FunctionTestModel());
 
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Login'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'FunctionTest'});
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
   }
@@ -39,9 +40,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -101,7 +100,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Welcome Back',
+                                  'Function Test',
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
                                       .override(
@@ -113,7 +112,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       0.0, 12.0, 0.0, 24.0),
                                   child: Text(
-                                    'Let\'s get started by filling out the form below.',
+                                    valueOrDefault<String>(
+                                      _model.cloudFunctiongee?.data,
+                                      'Let\'s get started by filling out the form below.',
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Figtree',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 12.0, 0.0, 24.0),
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      _model.cloudFunction1mw?.data,
+                                      'gemini',
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
@@ -206,7 +224,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                 .call({
                                           "prompt": 'Hello',
                                         });
-                                        _model.cloudFunction00l =
+                                        _model.cloudFunctiongee =
                                             SayHelloCloudFunctionCallResponse(
                                           data: result.data,
                                           succeeded: true,
@@ -215,22 +233,25 @@ class _LoginWidgetState extends State<LoginWidget> {
                                           jsonBody: result.data,
                                         );
                                       } on FirebaseFunctionsException catch (error) {
-                                        _model.cloudFunction00l =
+                                        _model.cloudFunctiongee =
                                             SayHelloCloudFunctionCallResponse(
                                           errorCode: error.code,
                                           succeeded: false,
                                         );
                                       }
 
-                                      if (_model.cloudFunction00l!.succeeded!) {
+                                      if (_model.cloudFunctiongee!.succeeded!) {
+                                        _model.sayHello =
+                                            valueOrDefault<String>(
+                                          _model.cloudFunctiongee?.data,
+                                          'sayHello',
+                                        );
+                                        safeSetState(() {});
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
                                             content: Text(
-                                              valueOrDefault<String>(
-                                                _model.cloudFunction00l?.data,
-                                                'result',
-                                              ),
+                                              'Success',
                                               style: TextStyle(
                                                 color:
                                                     FlutterFlowTheme.of(context)
@@ -246,7 +267,93 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         );
                                       }
 
-                                      setState(() {});
+                                      safeSetState(() {});
+                                    },
+                                    text: 'Sign In',
+                                    options: FFButtonOptions(
+                                      width: 370.0,
+                                      height: 44.0,
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 0.0),
+                                      iconPadding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 0.0, 0.0, 0.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .titleSmall
+                                          .override(
+                                            fontFamily: 'Instrument Sans',
+                                            color: Colors.white,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      elevation: 0.0,
+                                      borderSide: const BorderSide(
+                                        color: Colors.transparent,
+                                        width: 0.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 16.0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      try {
+                                        final result =
+                                            await FirebaseFunctions.instanceFor(
+                                                    region: 'asia-northeast1')
+                                                .httpsCallable(
+                                                    'menuSuggestionFlow')
+                                                .call({
+                                          "subject": 'AI app developers',
+                                        });
+                                        _model.cloudFunction1mw =
+                                            MenuSuggestionFlowCloudFunctionCallResponse(
+                                          data: result.data,
+                                          succeeded: true,
+                                          resultAsString:
+                                              result.data.toString(),
+                                          jsonBody: result.data,
+                                        );
+                                      } on FirebaseFunctionsException catch (error) {
+                                        _model.cloudFunction1mw =
+                                            MenuSuggestionFlowCloudFunctionCallResponse(
+                                          errorCode: error.code,
+                                          succeeded: false,
+                                        );
+                                      }
+
+                                      if (_model.cloudFunction1mw!.succeeded!) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'success!',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                const Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                          ),
+                                        );
+                                        _model.geministate =
+                                            valueOrDefault<String>(
+                                          _model.cloudFunction1mw?.data,
+                                          'gemini',
+                                        );
+                                        safeSetState(() {});
+                                      }
+
+                                      safeSetState(() {});
                                     },
                                     text: 'Sign In',
                                     options: FFButtonOptions(
